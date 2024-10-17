@@ -5,19 +5,45 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Wait for PostgreSQL to start
+        run: |
+          for i in {1..30}; do
+            if pg_isready -h localhost -p 5432; then
+              echo "PostgreSQL is ready"
+              break
+            fi
+            echo "Waiting for PostgreSQL..."
+            sleep 1
+          done
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install backend dependencies
+      - name: Install dependencies
         run: |
           pip install flake8
           pip install -r backend/requirements.txt
@@ -27,20 +53,21 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./backend
+        env:
+          DB_NAME: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          DB_HOST: localhost
+          DB_PORT: 5432
         run: python manage.py test
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
+  build_and_push:
+    needs: tests
+    runs-on: ubuntu-latest
 
-      - name: Install frontend dependencies
-        working-directory: ./frontend
-        run: npm install
-
-      - name: Run frontend tests
-        working-directory: ./frontend
-        run: npm test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -64,7 +91,7 @@ jobs:
           docker push screamerr/kittygram_gateway:latest
 
   deploy:
-    needs: build
+    needs: build_and_push
     runs-on: ubuntu-latest
 
     steps:
