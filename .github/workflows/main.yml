@@ -125,6 +125,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          timeout: 1000
           script: |
             cd ~/kittygram
             docker-compose down
