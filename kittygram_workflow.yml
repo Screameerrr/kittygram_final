@@ -108,6 +108,17 @@ jobs:
           target: "~/kittygram"
           rm: true
 
+      - name: Create .env file on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cat > ~/kittygram/.env << 'EOF'
+            ${{ secrets.ENV_FILE }}
+            EOF
+
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -119,8 +130,8 @@ jobs:
             docker-compose down
             docker-compose pull
             docker-compose up -d
-            docker-compose exec backend python manage.py migrate
-            docker-compose exec backend python manage.py collectstatic --noinput
+            docker-compose exec -T backend python manage.py migrate
+            docker-compose exec -T backend python manage.py collectstatic --noinput
 
       - name: Send Telegram Notification
         uses: appleboy/telegram-action@master
