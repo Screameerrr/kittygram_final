@@ -133,9 +133,9 @@ jobs:
             docker-compose exec -T backend python manage.py migrate
             docker-compose exec -T backend python manage.py collectstatic --noinput
 
-      - name: Send Telegram Notification
+      - name: Отправка уведомления в Телеграмм
         uses: appleboy/telegram-action@master
         with:
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
-          message: 'Kittygram deployed successfully!'
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          message: 'Kittygram Р-А-Б-О-Т-А-Е-Т!'
