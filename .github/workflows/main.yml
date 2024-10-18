@@ -131,8 +131,8 @@ jobs:
             docker-compose down
             docker-compose pull
             docker-compose up -d
-            docker-compose exec backend python manage.py migrate
-            docker-compose exec backend python manage.py collectstatic --noinput
+            docker-compose exec -T backend python manage.py migrate
+            docker-compose exec -T backend python manage.py collectstatic --noinput
 
       - name: Send Telegram Notification
         uses: appleboy/telegram-action@master
