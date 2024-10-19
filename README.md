@@ -44,9 +44,10 @@ ALLOWED_HOSTS=<ваш_домен_или_IP>
 ### Шаг 3. Запустите проект в Docker
 Проект использует Docker для контейнеризации. Запустите проект с помощью Docker Compose:
 
+```
 docker-compose exec backend python manage.py migrate
 docker-compose exec backend python manage.py collectstatic --noinput
-
+```
 
 ### Шаг 4. Примените миграции и соберите статику
 
