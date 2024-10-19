@@ -9,7 +9,7 @@ services:
       - ./.env
 
   backend:
-    image: your-dockerhub-username/kittygram-backend:latest  # Замените на имя вашего образа
+    image: screamerr/kittygram-backend:latest  # Замените на имя вашего образа
     command: gunicorn kittygram_backend.wsgi:application --bind 0:8000
     volumes:
       - static_volume:/app/static
@@ -22,7 +22,7 @@ services:
       - db
 
   frontend:
-    image: your-dockerhub-username/kittygram-frontend:latest  # Замените на имя вашего образа
+    image: screamerr/kittygram-frontend:latest  # Замените на имя вашего образа
     command: npm run build
     volumes:
       - static_volume:/app/build/static
@@ -30,9 +30,9 @@ services:
       - backend
 
   gateway:
-    image: your-dockerhub-username/kittygram-gateway:latest  # Замените на имя вашего образа
+    image: screamerr/kittygram-gateway:latest  # Замените на имя вашего образа
     ports:
-      - "9000:80"
+      - "8000:80"
     volumes:
       - static_volume:/static
       - media_volume:/media
