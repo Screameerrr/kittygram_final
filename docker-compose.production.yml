@@ -9,20 +9,20 @@ services:
       - ./.env
 
   backend:
-    image: screamerr/kittygram-backend:latest  # Замените на имя вашего образа
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:8000
+    image: screamerr/kittygram-backend:latest
+    command: gunicorn kittygram_backend.wsgi:application --bind 0:8080
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
     expose:
-      - "8000"
+      - "8080"
     env_file:
       - ./.env
     depends_on:
       - db
 
   frontend:
-    image: screamerr/kittygram-frontend:latest  # Замените на имя вашего образа
+    image: screamerr/kittygram-frontend:latest
     command: npm run build
     volumes:
       - static_volume:/app/build/static
