@@ -10,7 +10,7 @@ services:
 
   backend:
     image: screamerr/kittygram-backend:latest
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:8081  # Привязываем gunicorn к порту 8081
+    command: gunicorn kittygram_backend.wsgi:application --bind 0:8081
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
