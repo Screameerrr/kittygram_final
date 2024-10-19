@@ -41,5 +41,5 @@ services:
 
 volumes:
   pg_data:
-  static_volume:
-  media_volume:
+  static_volume:   # Добавлено объявление для static_volume
+  media_volume:    # Добавлено объявление для media_volume
