@@ -35,8 +35,10 @@ services:
       - backend
       - frontend
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - /var/www/kittygram/static/:/var/www/kittygram/static/
+      - /var/www/kittygram/media/:/var/www/kittygram/media/
+#      - static:/app/static
+#      - media:/app/media
 
 volumes:
   pg_data:
