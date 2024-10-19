@@ -11,7 +11,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "8001:8000"
+      - "9000:8000"  # Изменен порт на 9000
     volumes:
       - static:/app/static
       - media:/app/media
