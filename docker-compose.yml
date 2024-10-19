@@ -30,15 +30,13 @@ services:
   gateway:
     build: ./nginx
     ports:
-      - "9080:80"
+      - "8080:80"
     depends_on:
       - backend
       - frontend
     volumes:
-      - /var/www/kittygram/static/:/var/www/kittygram/static/
-      - /var/www/kittygram/media/:/var/www/kittygram/media/
-#      - static:/app/static
-#      - media:/app/media
+      - static:/app/static
+      - media:/app/media
 
 volumes:
   pg_data:
