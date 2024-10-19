@@ -4,46 +4,39 @@ services:
   db:
     image: postgres:13
     volumes:
-      - pg_data:/var/lib/postgresql/data/
+      - pg_data:/var/lib/postgresql/data
     env_file:
-      - ./.env
+      - .env
 
   backend:
-    build:
-      context: ./backend
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:8080
+    build: ./backend
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
-    expose:
-      - "8080"
+      - static:/app/static
+      - media:/app/media
     env_file:
-      - ./.env
+      - .env
     depends_on:
       - db
 
   frontend:
-    build:
-      context: ./frontend
-    command: npm run build
+    build: ./frontend
     volumes:
-      - static_volume:/app/build/static
-    depends_on:
-      - backend
+      - static:/app/static
+    env_file:
+      - .env
 
   gateway:
-    build:
-      context: ./nginx
+    build: ./nginx
     ports:
-      - 9000:80
-    volumes:
-      - static_volume:/static
-      - media_volume:/media
+      - "80:80"
     depends_on:
       - backend
       - frontend
+    volumes:
+      - static:/app/static
+      - media:/app/media
 
 volumes:
   pg_data:
-  static_volume:
-  media_volume:
+  static:
+  media:
