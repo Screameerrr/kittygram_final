@@ -1,6 +1,7 @@
 # Kittygram
 
-[![GitHub Actions Status](https://github.com/Port-tf/kittygram/workflows/CI/badge.svg)](https://github.com/Port-tf/kittygram/actions)
+[![GitHub Actions Status](https://github.com/Port-tf/kittygram/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/Port-tf/kittygram/actions)
+
 
 **Kittygram** — социальная сеть для обмена фотографиями любимых питомцев. Это полностью рабочий проект, который состоит из бэкенд-приложения на Django и фронтенд-приложения на React.
 
@@ -104,5 +105,5 @@ dockerhub_username: ваш_логин_на_докерхабе
 - Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя приходит сообщение в телеграм.
 - В корне проекта есть файл kittygram_workflow.yml.
 
-№№ Автор
-№№№ Проект разработан Шевчуком Максимом
+## Автор
+### Проект разработан Шевчуком Максимом
