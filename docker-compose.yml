@@ -35,7 +35,7 @@ services:
     build:
       context: ./nginx
     ports:
-      - "443:443"
+      - 9000:80
     volumes:
       - static_volume:/static
       - media_volume:/media
