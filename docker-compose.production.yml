@@ -3,8 +3,6 @@ version: '3'
 services:
   db:
     image: postgres:13
-#    volumes:
-#      - pg_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
 
@@ -20,7 +18,6 @@ services:
       - ./.env
     depends_on:
       - db
-
 
   frontend:
     image: screamerr/kittygram-frontend:latest
