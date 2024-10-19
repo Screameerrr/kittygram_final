@@ -13,8 +13,10 @@ services:
     ports:
       - "9000:8000"
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/var/www/kittygram/static/
+      - media:/var/www/kittygram/media/
+#      - static:/app/static
+#      - media:/app/media
     env_file:
       - .env
     depends_on:
