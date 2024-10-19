@@ -10,12 +10,12 @@ services:
 
   backend:
     image: screamerr/kittygram-backend:latest
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:9000  # Порт 9000
+    command: gunicorn kittygram_backend.wsgi:application --bind 0:9000
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
     expose:
-      - "9000"  # Порт 9000
+      - "9000"
     env_file:
       - ./.env
     depends_on:
