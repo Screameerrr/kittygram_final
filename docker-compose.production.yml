@@ -30,7 +30,7 @@ services:
       - backend
 
   gateway:
-    image: screamerr/kittygram-gateway:latest  # Замените на имя вашего образа
+    image: screamerr/kittygram-gateway:latest
     ports:
       - "443:443"
     volumes:
