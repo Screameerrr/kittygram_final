@@ -12,10 +12,8 @@ services:
     image: screamerr/kittygram-backend:latest
     command: gunicorn kittygram_backend.wsgi:application --bind 0:9000
     volumes:
-      - static_volume:/var/www/kittygram/static/
-      - media_volume:/var/www/kittygram/media/
-#      - static_volume:/app/static
-#      - media_volume:/app/media
+      - static_volume:/app/static
+      - media_volume:/app/media
     expose:
       - "9000"
     env_file:
@@ -27,8 +25,7 @@ services:
     image: screamerr/kittygram-frontend:latest
     command: npm run build
     volumes:
-      - static_volume:/var/www/kittygram/static/
-#      - static_volume:/app/build/static
+      - static_volume:/app/build/static
     depends_on:
       - backend
 
@@ -37,10 +34,8 @@ services:
     ports:
       - 9080:80
     volumes:
-      - static_volume:/var/www/kittygram/static/
-      - media_volume:/var/www/kittygram/media/
-#      - static_volume:/static
-#      - media_volume:/media
+      - static_volume:/static
+      - media_volume:/media
     depends_on:
       - backend
       - frontend
