@@ -3,17 +3,19 @@ version: '3'
 services:
   db:
     image: postgres:13
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
     env_file:
       - ./.env
 
   backend:
     image: screamerr/kittygram-backend:latest
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:8081
+    command: gunicorn kittygram_backend.wsgi:application --bind 0:8080
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
     expose:
-      - "8081"
+      - "8080"
     env_file:
       - ./.env
     depends_on:

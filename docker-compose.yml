@@ -9,37 +9,36 @@ services:
       - .env
 
   backend:
-    image: screamerr/kittygram-backend:latest
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:8081
+    build: ./backend
+    ports:
+      - "8080:8000"
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
-    expose:
-      - "8081"
+      - static:/app/static
+      - media:/app/media
     env_file:
-      - ./.env
+      - .env
     depends_on:
       - db
 
   frontend:
     build: ./frontend
     volumes:
-      - static_volume:/app/static
+      - static:/app/static
     env_file:
       - .env
 
   gateway:
     build: ./nginx
     ports:
-      - 9000:80
+      - "8080:80"
     depends_on:
       - backend
       - frontend
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
+      - static:/app/static
+      - media:/app/media
 
 volumes:
   pg_data:
-  static_volume:   # Добавлено объявление для static_volume
-  media_volume:    # Добавлено объявление для media_volume
+  static:
+  media:
