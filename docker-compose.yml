@@ -11,7 +11,7 @@ services:
   backend:
     build:
       context: ./backend
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:8000
+    command: gunicorn kittygram_backend.wsgi:application --bind 0:8080
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
