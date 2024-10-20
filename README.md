@@ -1,6 +1,6 @@
 # Kittygram
 
-[![GitHub Actions Status](https://github.com/Screamerrr/kittygram/actions/workflows/main.yml/badge.svg?event=push)]
+[![GitHub Actions Status](https://github.com/Screamerrr/kittygram/actions/workflows/main.yml/badge.svg)](https://github.com/Screamerrr/kittygram/actions)
 
 **Kittygram** — социальная сеть для обмена фотографиями любимых питомцев. Это полностью рабочий проект, который состоит из бэкенд-приложения на Django и фронтенд-приложения на React.
 
