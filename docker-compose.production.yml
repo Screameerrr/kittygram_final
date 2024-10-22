@@ -32,7 +32,7 @@ services:
   gateway:
     image: screamerr/kittygram-gateway:latest
     ports:
-      - 9000:80
+      - 8080:80
     volumes:
       - media_volume:/app/media
       - static_volume:/app/static
