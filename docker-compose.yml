@@ -35,8 +35,8 @@ services:
       - backend
       - frontend
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/static
+      - media:/media
 
 volumes:
   pg_data:
