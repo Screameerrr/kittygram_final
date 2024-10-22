@@ -13,8 +13,8 @@ services:
     ports:
       - "9000:8000"
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/static
+      - media:/media
     env_file:
       - .env
     depends_on:
