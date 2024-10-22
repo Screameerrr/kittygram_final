@@ -13,8 +13,8 @@ services:
     ports:
       - "9000:8000"
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/app/static/
+      - media:/app/media/
     env_file:
       - .env
     depends_on:
@@ -23,7 +23,7 @@ services:
   frontend:
     build: ./frontend
     volumes:
-      - static:/app/static
+      - static:/app/static/
     env_file:
       - .env
 
@@ -35,8 +35,8 @@ services:
       - backend
       - frontend
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - static:/app/static/
+      - media:/app/media/
 
 volumes:
   pg_data:
