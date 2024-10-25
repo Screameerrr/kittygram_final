@@ -108,8 +108,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/kittygram/static/'
 
-MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
-MEDIA_ROOT = os.getenv('MEDIA_ROOT', '/var/www/kittygram/media/')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/kittygram/media/'
+
+# MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
+# MEDIA_ROOT = os.getenv('MEDIA_ROOT', '/var/www/kittygram/media/')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
