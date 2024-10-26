@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pytest
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 BACKEND_DIR_NAME = 'backend'
 FRONTEND_DIR_NAME = 'frontend'
@@ -14,7 +13,6 @@ TASKI_DOMAIN_KEY = 'taski_domain'
 DOCKERFILE_NAME = 'Dockerfile'
 DOCKERHUB_USERNAME_KEY = 'dockerhub_username'
 WORKFLOW_FILE = 'kittygram_workflow.yml'
-DOCKER_COMPOSE_PROD_FILE_NAME = 'docker-compose.production.yml'
 
 for dir_name in (BACKEND_DIR_NAME, FRONTEND_DIR_NAME, NGINX_DIR_NAME):
     path_to_dir = BASE_DIR / dir_name
@@ -60,11 +58,6 @@ def workflow_file_name() -> str:
     return WORKFLOW_FILE
 
 
-@pytest.fixture
-def docker_compose_prod_file_name() -> str:
-    return DOCKER_COMPOSE_PROD_FILE_NAME
-
-
 @pytest.fixture(scope='session')
 def deploy_file_info() -> tuple[Path, str]:
     deploy_info_file = BASE_DIR / DEPLOY_INFO_FILE_NAME
@@ -78,7 +71,7 @@ def deploy_file_info() -> tuple[Path, str]:
 @pytest.fixture(scope='session')
 def deploy_info_file_content(
         deploy_file_info: tuple[Path, str]
-) -> dict[str, str]:
+        ) -> dict[str, str]:
     path, relative_path = deploy_file_info
     with open(path, 'r', encoding='utf-8', errors='ignore') as f:
         file_content = {}

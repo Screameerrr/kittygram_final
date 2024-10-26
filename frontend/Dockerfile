@@ -1,13 +1,13 @@
-FROM node:14
-
+FROM node:18
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
-RUN npm install
+RUN npm ci
 
 COPY . .
-
 RUN npm run build
+RUN npm install --global http-server
 
-CMD ["npm", "start"]
+CMD ["npx", "-y", "http-server", "-p", "9000", "/app/build"]
