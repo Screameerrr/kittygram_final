@@ -1,47 +1,32 @@
 version: '3'
 
+volumes:
+  pg_data:
+  static:
+  media:
+
 services:
   db:
     image: postgres:13
+    env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data/
-    env_file:
-      - ./.env
-
+      - pg_data:/var/lib/postgresql/data
   backend:
-    image: screamerr/kittygram-backend:latest
-    command: gunicorn kittygram_backend.wsgi:application --bind 0:9000
+    image: screamerr/kittygram_backend
+    env_file: .env
     volumes:
-      - static_volume:/var/www/kittygram/static
-      - media_volume:/var/www/kittygram/media
-    expose:
-      - "9000"
-    env_file:
-      - ./.env
-    depends_on:
-      - db
-
+      - static:/backend_static
+      - media:/app/media
   frontend:
-    image: screamerr/kittygram-frontend:latest
-    command: npm run build
+    image: screamerr/kittygram_frontend
+    env_file: .env
+    command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static_volume:/var/www/kittygram/static
-    depends_on:
-      - backend
-
+      - static:/frontend_static
   gateway:
-    image: screamerr/kittygram-gateway:latest
+    image: screamerr/kittygram_gateway
+    volumes:
+      - static:/staticfiles/
+      - media:/media
     ports:
       - 9000:80
-    volumes:
-      - static_volume:/var/www/kittygram/static
-      - media_volume:/var/www/kittygram/media
-    depends_on:
-      - backend
-      - frontend
-
-volumes:
-  pg_data:
-  static_volume:
-  media_volume:
-
