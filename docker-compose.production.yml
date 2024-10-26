@@ -11,18 +11,25 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+
   backend:
     image: screamerr/kittygram_backend
     env_file: .env
     volumes:
       - static:/backend_static
       - media:/app/media
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn myproject.wsgi:application -w 4 -b 0.0.0.0:8000"
+
   frontend:
     image: screamerr/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
+
   gateway:
     image: screamerr/kittygram_gateway
     volumes:
